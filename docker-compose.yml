@@ -1,0 +1,27 @@
+version: '3.1'
+
+services:
+  redis:
+    image: redis
+
+  api:
+    build:
+      dockerfile: Dockerfile.api_server
+      context: ./server
+    ports:
+      - 3005:3005
+    volumes:
+      - ./server:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+
+  worker:
+    build:
+      dockerfile: Dockerfile.celery_worker
+      context: ./server
+    volumes:
+      - ./server:/app
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
