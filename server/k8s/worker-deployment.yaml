@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: worker:latest  # You'll need to build and push this image
+        env: # TODO: Use kubernetes secrets
+        - name: REDIS_HOST
+          value: redis
+        - name: REDIS_PORT
+          value: "6379"
+        - name: MINIO_ACCESS_KEY
+          value: MINIO_ACCESS_KEY
+        - name: MINIO_SECRET_KEY
+          value: MINIO_SECRET_KEY
