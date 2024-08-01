@@ -32,6 +32,11 @@ The flow goes like this
 # Architecture
 ![Alt text](./Archi.png "Archite")
 
+# Running tests
+```bash
+docker compose exec -ti worker bash -c "python -m unittest discover -s tests"
+```
+
 # Advantages of this approach
 1. The approach is a hybrid of both sync and async approach. Synchronous when the cache is populated with sitemap for a given url. Async task based approach when the crawling request is for the first time.
 2. The server is capable running multiple web crawling tasks.
