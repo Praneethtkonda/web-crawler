@@ -5,7 +5,7 @@ import os
 
 from datetime import datetime
 
-API_BASE_URL = os.environ.get("API_BASE_URL", "http://api:3005/api/v1")
+API_BASE_URL = os.environ.get("API_BASE_URL", "http://localhost:3005/api/v1")
 TIMEOUT = 60 * 10 # 10 minutes
 
 def parse_arguments():
