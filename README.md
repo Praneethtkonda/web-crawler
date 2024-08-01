@@ -1,8 +1,21 @@
 # web-crawler
 A simple web crawler service including both server and client
 
-
 # Running client and server
+Instructions for client:
+1. Navigate to the client folder.
+2. Run the run-crawler.sh shell script with url and output arguments to get the 
+   sitemap in the same folder with the name provided by you.
+
+Instructions for server:
+1. Run the docker compose on the server folder to bring up all the dependent containers.
+2. Once the containers are up and running you can check for swagger documentation of API.
+3. Visit localhost:3005/api/v1/docs for server documentation and interaction.
+4. Visit localhost:9001 for minio.
+5. Visit localhost:5556 for flower monitoring dashboard to monitor crawling tasks that are queued.
+
+
+For more information and detailed runs refer to these links:-
 
 For client documentation refer [here](./client/README.md)
 
@@ -20,7 +33,10 @@ The flow goes like this
 ![Alt text](./Archi.png "Archite")
 
 # Advantages of this approach
-
+1. The approach is a hybrid of both sync and async approach. Synchronous when the cache is populated with sitemap for a given url. Async task based approach when the crawling request is for the first time.
+2. The server is capable running multiple web crawling tasks.
+3. Also since the workers are stateless horizontal scaling is also possible.
+4. Storage of sitemap is done on an object storage and the client later is presented with presigned url of the file.
 
 # Limitations of this approach
 
