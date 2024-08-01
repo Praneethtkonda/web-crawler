@@ -8,8 +8,8 @@ Instructions for client:
    sitemap in the same folder with the name provided by you.
 
 Instructions for server:
-1. Run the docker compose on the server folder to bring up all the dependent containers.
-2. Once the containers are up and running you can check for swagger documentation of API.
+1. Run the docker compose up command on the root folder to bring up all the dependent containers.
+2. Once the containers are up and running, you can check for swagger documentation of API.
 3. Visit localhost:3005/api/v1/docs for server documentation and interaction.
 4. Visit localhost:9001 for minio.
 5. Visit localhost:5556 for flower monitoring dashboard to monitor crawling tasks that are queued.

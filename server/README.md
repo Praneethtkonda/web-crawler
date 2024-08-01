@@ -2,7 +2,7 @@
 
 Note: Docker is must needed for this setup to work and run
 
-Navigate to the server folder and run docker compose up to bring
+Navigate to the root folder and run docker compose up to bring
 up the containers.
 
 The server is a container setup consisting of the following containers
