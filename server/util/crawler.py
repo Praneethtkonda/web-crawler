@@ -6,6 +6,8 @@ import threading
 from queue import Queue
 import concurrent.futures
 import json
+import random
+from util.constants import USER_AGENTS
 
 class WebCrawler(HTMLParser):
     def __init__(self, base_url, max_threads=5):
@@ -40,7 +42,8 @@ class WebCrawler(HTMLParser):
             print(f"Crawling URL: {url}")
 
         try:
-            response = requests.get(url)
+            headers = {'User-Agent': random.choice(USER_AGENTS)}
+            response = requests.get(url, headers=headers)
             self.current_url = url
             self.site_map[url] = []
             self.feed(response.text)
