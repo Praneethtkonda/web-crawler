@@ -34,6 +34,7 @@ The flow goes like this
 
 # Running tests
 ```bash
+docker compose up
 docker compose exec -ti worker bash -c "python -m unittest discover -s tests"
 ```
 
