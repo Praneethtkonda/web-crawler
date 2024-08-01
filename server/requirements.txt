@@ -1,10 +1,10 @@
-amqp==5.0.6
-celery==5.1.2
-fastapi==0.70.0
+minio==7.2.7
+celery==5.4.0
+fastapi==0.111.1
 flower==1.0.0
-pydantic==1.8.2
-redis==3.5.3
+pydantic==1.10.2
+redis==4.5.4
 requests==2.26.0
-uvicorn==0.15.0
-psycopg2-binary==2.9.2
+urllib3==1.26.0
+uvicorn==0.30.3
 cryptography==37.0.2
