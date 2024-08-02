@@ -4,8 +4,9 @@ import time
 import os
 
 from datetime import datetime
+from urllib.parse import urlparse
 
-API_BASE_URL = os.environ.get("API_BASE_URL", "http://api:3005/api/v1")
+API_BASE_URL = os.environ.get("API_BASE_URL", "http://localhost:3005/api/v1")
 TIMEOUT = 60 * 10 # 10 minutes
 
 def parse_arguments():
@@ -15,7 +16,7 @@ def parse_arguments():
     return parser.parse_args()
 
 def submit_crawl_task(url):
-    response = requests.post(f"{API_BASE_URL}/crawl", json={"url": url, "max_ttr": 30})
+    response = requests.post(f"{API_BASE_URL}/crawl", json={"url": url, "max_ttr": "30"})
     response.raise_for_status()
     return response.json()
 
@@ -33,6 +34,12 @@ def download_sitemap(download_url, filename):
         file.write(response.content)
     print(f"Sitemap downloaded to {filename}")
 
+def convert_url(input_url):
+    url_parsed = urlparse(input_url)
+    if "minio" in url_parsed.netloc:
+        return input_url.replace("http://minio:9000", "http://localhost:8080")
+    return input_url
+
 def main():
     args = parse_arguments()
     url = args.url
@@ -49,6 +56,7 @@ def main():
     if "sitemap_url" in crawl_response and crawl_response["sitemap_url"] != "":
         # URL found in cache, download directly
         download_url = crawl_response["sitemap_url"]
+        download_url = convert_url(download_url)
         download_sitemap(download_url, output_location)
     else:
         # Get task ID and poll for status
@@ -67,6 +75,7 @@ def main():
             task_status = check_task_status(task_id)
             if task_status["status"] == "SUCCESS":
                 download_url = task_status["sitemap_url"]
+                download_url = convert_url(download_url)
                 download_sitemap(download_url, output_location)
                 break
             elif task_status["status"] == "FAILURE":
