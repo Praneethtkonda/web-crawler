@@ -13,6 +13,7 @@ Instructions for server:
 3. Visit localhost:3005/api/v1/docs for server documentation and interaction.
 4. Visit localhost:9001 for minio.
 5. Visit localhost:5556 for flower monitoring dashboard to monitor crawling tasks that are queued.
+6. Visit localhost:8080 for nginx proxy.
 
 
 For more information and detailed runs refer to these links:-
@@ -30,7 +31,7 @@ The flow goes like this
 3. If present in the cache the client gets the pre_signed url from S3 bucket to download the site map and client can download the sitemap.
 
 # Architecture
-![Alt text](./Archi.png "Archite")
+![Alt text](./Archi.png "Architecture")
 
 # Running tests
 ```bash
