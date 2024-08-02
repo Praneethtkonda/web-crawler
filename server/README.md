@@ -10,9 +10,10 @@ The server is a container setup consisting of the following containers
 2. minio => For storing sitemaps and exporting them to client via pre signed URLs.
 3. api => The API server which listens to incoming requests and enqueues any crawling task.
           It also exposes the tasks route for querying the status of the request.
-4. worker => Worker stateless containers which does the heavy lifting of crawling the URLs
+4. nginx => A simple reverse proxy that proxies to the minio container to support file download
+5. worker => Worker stateless containers which does the heavy lifting of crawling the URLs
             and storing the results in redis and minio object store.
-5. dashboard => Flower monitoring dashboard for monitoring celery tasks.
+6. dashboard => Flower monitoring dashboard for monitoring celery tasks.
 
 ```bash
 web-crawler/server % docker compose up
@@ -132,6 +133,29 @@ api-1        | INFO:     Started server process [1]
 api-1        | INFO:     Waiting for application startup.
 api-1        | INFO:     Application startup complete.
 api-1        | INFO:     Uvicorn running on http://0.0.0.0:3005 (Press CTRL+C to quit)
+nginx_1      | /docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+nginx_1      | /docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+nginx_1      | /docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+nginx_1      | 10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+nginx_1      | 10-listen-on-ipv6-by-default.sh: info: /etc/nginx/conf.d/default.conf differs from the packaged version
+nginx_1      | /docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+nginx_1      | /docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+nginx_1      | /docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+nginx_1      | /docker-entrypoint.sh: Configuration complete; ready for start up
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: using the "epoll" event method
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: nginx/1.27.0
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: built by gcc 13.2.1 20231014 (Alpine 13.2.1_git20231014)
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: OS: Linux 5.10.47-linuxkit
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker processes
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 29
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 30
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 31
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 32
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 33
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 34
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 35
+nginx_1      | 2024/08/02 09:42:48 [notice] 1#1: start worker process 36
 worker-1     | /usr/local/lib/python3.11/site-packages/celery/platforms.py:829: SecurityWarning: You're running the worker with superuser privileges: this is
 worker-1     | absolutely not recommended!
 worker-1     | 
