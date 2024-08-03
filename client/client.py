@@ -40,6 +40,13 @@ def convert_url(input_url):
         return input_url.replace("http://minio:9000", "http://localhost:8080")
     return input_url
 
+def is_valid_url(url):
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except ValueError:
+        return False
+
 def main():
     args = parse_arguments()
     url = args.url
@@ -47,6 +54,10 @@ def main():
 
     if not url or not output_location:
         print("Error missing arugments. Please recheck")
+        return 1
+    
+    if not is_valid_url(url):
+        print("Not a valid url. Please recheck")
         return 1
 
     print(f"Submitting crawl task for URL: {url}")

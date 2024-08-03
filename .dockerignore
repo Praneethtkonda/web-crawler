@@ -1,0 +1,54 @@
+# Version control
+.git
+server/.gitignore
+
+# Python cache files
+__pycache__
+server/*.log
+server/*.pyc
+server/*.pyo
+server/*.pyd
+server/.Python
+server/env
+server/pip-log.txt
+server/pip-delete-this-directory.txt
+server/.tox
+server/.coverage
+server/.coverage.*
+server/.cache
+server/nosetests.xml
+server/coverage.xml
+server/*.cover
+server/*.log
+server/__
+
+# Virtual environment
+server/venv
+server/.env
+server/.venv
+server/env/
+server/venv/
+server/ENV/
+
+# IDE specific files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project specific
+*.md
+tests/
+docs/
+*.yml
+*.yaml
+!docker-compose.yml
