@@ -12,9 +12,11 @@ spec:
       labels:
         app: dashboard
     spec:
+      imagePullSecrets:
+      - name: ghcr-secret
       containers:
       - name: dashboard
-        image: dashboard:latest  # TODO: Push image to docker hub
+        image: ghcr.io/praneethtkonda/web-crawler-dashboard:0.5
         command: ["celery"]
         args: ["--broker=redis://redis:6379/0", "--app=worker.celery", "flower", "--port=5555"]
         ports:

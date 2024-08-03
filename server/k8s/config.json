@@ -1,0 +1,7 @@
+{
+	"auths": {
+		"ghcr.io": {
+		    "auth": "<username:auth_token(base64_encoded)"
+		}
+	}
+}

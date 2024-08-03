@@ -12,9 +12,11 @@ spec:
       labels:
         app: worker
     spec:
+      imagePullSecrets:
+      - name: ghcr-secret
       containers:
       - name: worker
-        image: worker:latest  # You'll need to build and push this image
+        image: ghcr.io/praneethtkonda/web-crawler-worker:0.5
         env: # TODO: Use kubernetes secrets
         - name: REDIS_HOST
           value: redis

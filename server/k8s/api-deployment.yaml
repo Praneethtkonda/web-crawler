@@ -12,9 +12,11 @@ spec:
       labels:
         app: api
     spec:
+      imagePullSecrets:
+      - name: ghcr-secret
       containers:
       - name: api
-        image: api:latest  # TODO: Push image to docker hub
+        image: ghcr.io/praneethtkonda/web-crawler-api:0.5
         ports:
         - containerPort: 3005
         env:
